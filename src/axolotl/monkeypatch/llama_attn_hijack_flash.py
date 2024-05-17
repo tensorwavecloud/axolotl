@@ -22,7 +22,10 @@ from transformers.models.llama.modeling_llama import (
     apply_rotary_pos_emb,
     repeat_kv,
 )
-from xformers.ops import SwiGLU
+# from xformers.ops import SwiGLU
+class SwiGLU:
+    def __init__():
+        print("hi")
 
 from axolotl.monkeypatch.utils import get_cu_seqlens_from_pos_ids, set_module_name
 
@@ -45,15 +48,16 @@ LOG = logging.getLogger("axolotl")
 
 
 def is_xformers_swiglu_available() -> bool:
-    from xformers.ops.common import get_xformers_operator
+    # from xformers.ops.common import get_xformers_operator
 
-    try:
-        get_xformers_operator("swiglu_packedw")()
-        return True
-    except RuntimeError as exc:
-        if "No such operator xformers::swiglu_packedw " in str(exc):
-            return False
-        return True
+    # try:
+    #     get_xformers_operator("swiglu_packedw")()
+    #     return True
+    # except RuntimeError as exc:
+    #     if "No such operator xformers::swiglu_packedw " in str(exc):
+    #         return False
+    #     return True
+    return False
 
 
 def replace_llama_mlp_with_swiglu(model):
